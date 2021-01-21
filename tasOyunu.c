@@ -3,7 +3,7 @@
 #include <time.h>
 
 int player1[2][20], player2[2][20];
-int game_info(int, int, int, int);
+int game(int, int, int, int);
 int game_over(int, int, int);
 
 void beginning()
@@ -261,29 +261,7 @@ int game_control(int player_control, int color_control, int number_control)
 
 int move = 0;
 
-int game_move(int coming_player, int coming_color, int coming_number)
-{
-    int color, number;
-    for (color = 0; color < 2; color++)
-    {
-        for (number = 0; number < 20; number++)
-        {
-            if (coming_player == 1 && coming_color == color && coming_number == number)
-            {
-                player1[color][number]--;
-                player2[color][number]++;
-            }
-            else if (coming_player == 2 && coming_color == color && coming_number == number)
-            {
-                player1[color][number]++;
-                player2[color][number]--;
-            }
-        }
-    }
-    return 0;
-}
-
-int game_info(int coming_player, int coming_color, int coming_number, int is_game_over)
+int game(int coming_player, int coming_color, int coming_number, int is_game_over)
 {
     if (is_game_over == 1)
     {
@@ -334,7 +312,23 @@ int game_info(int coming_player, int coming_color, int coming_number, int is_gam
             }
         }
     }
-    game_move(coming_player, coming_color, coming_number);
+    int color, number;
+    for (color = 0; color < 2; color++)
+    {
+        for (number = 0; number < 20; number++)
+        {
+            if (coming_player == 1 && coming_color == color && coming_number == number)
+            {
+                player1[color][number]--;
+                player2[color][number]++;
+            }
+            else if (coming_player == 2 && coming_color == color && coming_number == number)
+            {
+                player1[color][number]++;
+                player2[color][number]--;
+            }
+        }
+    }
     table();
     game_control(coming_player, coming_color, coming_number);
     return 0;
@@ -345,7 +339,7 @@ void random_selection()
     int selection_player = (rand() % 2) + 1;
     int selection_color = rand() % 2;
     int selection_number = rand() % 10;
-    game_info(selection_player, selection_color, selection_number, 0);
+    game(selection_player, selection_color, selection_number, 0);
     return;
 }
 
