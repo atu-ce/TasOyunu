@@ -255,7 +255,7 @@ int game_control(int player_control, int color_control, int number_control)
             }
         }
     }
-    game_info(next_player, next_color, next_number, is_game_over);
+    game(next_player, next_color, next_number, is_game_over);
     return 0;
 }
 
